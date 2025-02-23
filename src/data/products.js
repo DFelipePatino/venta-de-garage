@@ -1,6 +1,6 @@
 export const products = [
   {
-    id: 1,
+    id: 100,
     name: "Audifonos Inalambricos",
     price: 199.99,
     description: "Audifonos inalambricos con cancelacion de ruido activa y una bateria de 30 horas.",
@@ -24,7 +24,7 @@ export const products = [
     }
   },
   {
-    id: 2,
+    id: 101,
     name: "Reloj Inteligente",
     price: 149.99,
     description: "Reloj inteligente con monitorizacion de fitness y GPS.",
@@ -47,7 +47,7 @@ export const products = [
     }
   },
   {
-    id: 3,
+    id: 102,
     name: "Banco de Energia Portatil",
     price: 49.99,
     description: "Banco de energia portatil con carga rapida para todos tus dispositivos.",

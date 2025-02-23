@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { products } from '../data/products';
 import { useStore } from '../context/StoreContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedProduct } from '../redux/productActions';
 import { Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
+import { getProducts } from '../redux/productActions';
 
 function Home() {
   const dispatch = useDispatch();
@@ -14,10 +15,38 @@ function Home() {
   const { searchTerm, filterPrice, sortBy } = useStore();
   const navigate = useNavigate();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const productsEndPoint = useSelector(state => state.product.productsEndPoint);
+  console.log(productsEndPoint, "estos son los productos");
+  
+
+  useEffect(() => {
+    dispatch(getProducts());
+    console.log("se corrio esta accion");
+    
+  }, [dispatch]);
+
+
 
 
   const filteredProducts = useMemo(() => {
-    return products
+    // Combine both product sources
+    const allProducts = [
+      ...products.map(p => ({
+        ...p,
+        isLocalProduct: true // Flag to identify original products
+      })),
+      ...(productsEndPoint || []).map(p => ({
+        id: p.id,
+        name: p.nombre,
+        price: parseFloat(p.precio),
+        description: p.descripcion,
+        images: [p.imagen],
+        inventory: p.stock,
+        isLocalProduct: false // Flag to identify API products
+      }))
+    ];
+
+    return allProducts
       .filter(product =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
         product.price >= filterPrice.min &&
@@ -35,10 +64,10 @@ function Home() {
             return 0;
         }
       });
-  }, [searchTerm, filterPrice, sortBy]);
+  }, [searchTerm, filterPrice, sortBy, productsEndPoint]);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.7 }}
@@ -117,6 +146,11 @@ function Home() {
                       {product.inventory} disponibles
                     </p>
                   </div>
+                  {!product.isLocalProduct && (
+                    <p className="text-sm text-gray-500 mt-2">
+                      {product.description}
+                    </p>
+                  )}
                 </div>
               </button>
             ))}
