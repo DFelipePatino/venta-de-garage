@@ -8,6 +8,8 @@ import { setSelectedProduct } from '../redux/productActions';
 import { Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { getProducts } from '../redux/productActions';
+import Badge from '@mui/material/Badge';
+import Tooltip from '@mui/material/Tooltip';
 
 function Home() {
   const dispatch = useDispatch();
@@ -15,25 +17,26 @@ function Home() {
   const { searchTerm, filterPrice, sortBy } = useStore();
   const navigate = useNavigate();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isFiltersOpen2, setIsFiltersOpen2] = useState(false);
   const productsEndPoint = useSelector(state => state.product.productsEndPoint);
-  console.log(productsEndPoint, "estos son los productos");
-  
+  const [showNotification, setShowNotification] = useState(false);
+  const [showNotification2, setShowNotification2] = useState(false);
 
   useEffect(() => {
     dispatch(getProducts());
-    console.log("se corrio esta accion");
-    
+    setTimeout(() => {
+      setShowNotification(true);
+    }, 1500);
+    setTimeout(() => {
+      setShowNotification2(true);
+    }, 2000);
   }, [dispatch]);
 
-
-
-
   const filteredProducts = useMemo(() => {
-    // Combine both product sources
     const allProducts = [
       ...products.map(p => ({
         ...p,
-        isLocalProduct: true // Flag to identify original products
+        isLocalProduct: true
       })),
       ...(productsEndPoint || []).map(p => ({
         id: p.id,
@@ -42,7 +45,7 @@ function Home() {
         description: p.descripcion,
         images: [p.imagen],
         inventory: p.stock,
-        isLocalProduct: false // Flag to identify API products
+        isLocalProduct: false
       }))
     ];
 
@@ -73,40 +76,167 @@ function Home() {
       transition={{ delay: 0.7 }}
       className="max-w-7xl mx-auto px-4 pt-0 pb-8"
     >
-      <div className="mb-6">
-        <button
-          onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-        >
-          <span>Filtros</span>
-          <svg
-            className={`w-5 h-5 transition-transform duration-200 ${isFiltersOpen ? 'rotate-180' : ''}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+      {/* {showNotification && (
+        <div className="mb-4 p-4 bg-red-500 text-white rounded">
+          This is a notification! Click the button to dismiss.
+          <button
+            onClick={() => setShowNotification(false)}
+            className="ml-4 underline"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
-        <Transition
-          show={isFiltersOpen}
-          enter="transition-all duration-300 ease-out"
-          enterFrom="transform scale-95 opacity-0 -translate-y-2"
-          enterTo="transform scale-100 opacity-100 translate-y-0"
-          leave="transition-all duration-200 ease-in"
-          leaveFrom="transform scale-100 opacity-100 translate-y-0"
-          leaveTo="transform scale-95 opacity-0 -translate-y-2"
-        >
-          <div className="mt-4">
-            <ProductFilters />
-          </div>
-        </Transition>
+            Dismiss
+          </button>
+        </div>
+      )} */}
+      <div className="mb-6 flex justify-between items-center w-full">
+        <div className="relative flex-grow">
+          <Badge
+            variant="dot"
+            color="error"
+            invisible={!showNotification}
+            sx={{
+              '& .MuiBadge-badge': {
+                animation: showNotification ? 'pulse 1.5s infinite' : 'none',
+              },
+            }}
+          >
+            <button
+              onClick={() => {
+                setIsFiltersOpen(!isFiltersOpen);
+                setShowNotification(false);
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              <span>Filtros</span>
+              <svg
+                className={`w-5 h-5 transition-transform duration-200 ${isFiltersOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+          </Badge>
+        </div>
+
+        <div className="flex-none">
+          <Tooltip title="Aqui puedes agregar productos!" arrow placement="right">
+            <Badge
+              variant="dot"
+              color="error"
+              invisible={!showNotification2}
+              sx={{
+                width: '100%',
+                '& .MuiBadge-badge': {
+                  animation: showNotification2 ? 'pulse 1.5s infinite' : 'none',
+                },
+              }}
+            >
+
+              <button
+                onClick={() => setIsFiltersOpen2(!isFiltersOpen2)}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                <span>BackOffice</span>
+                <svg
+                  className={`w-5 h-5 transition-transform duration-200 ${isFiltersOpen2 ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+            </Badge>
+          </Tooltip>
+
+          <Transition
+            show={isFiltersOpen2}
+            enter="transition-all duration-300 ease-out"
+            enterFrom="transform scale-95 opacity-0 -translate-y-2"
+            enterTo="transform scale-100 opacity-100 translate-y-0"
+            leave="transition-all duration-200 ease-in"
+            leaveFrom="transform scale-100 opacity-100 translate-y-0"
+            leaveTo="transform scale-95 opacity-0 -translate-y-2"
+          >
+            <div className="absolute z-10 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
+              <Tooltip title="Aqui puedes agregar productos" arrow placement="right">
+                <button
+                  onClick={() => {
+                    // Navigate to an external link
+                    window.open('https://inventario-simba-back.onrender.com/inventario/productos/', '_blank'); // Replace with the actual URL for Filter 1
+                    setShowNotification2(false);
+                    setTimeout(() => {
+                      setIsFiltersOpen2(false);
+                    }, 500); // Match this duration with the CSS transition duration
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                >
+                  Productos
+                </button>
+              </Tooltip>
+              <Tooltip title="Aqui puedes manejar el inventario" arrow placement="right">
+                <button
+                  onClick={() => {
+                    // Navigate to an external link
+                    window.open('https://inventario-simba-back.onrender.com/inventario/inventarios/', '_blank'); // Replace with the actual URL for Filter 2
+                    setShowNotification2(false);
+                    setTimeout(() => {
+                      setIsFiltersOpen2(false);
+                    }, 500); // Match this duration with the CSS transition duration
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                >
+                  Inventario
+                </button>
+              </Tooltip>
+              {/* <Tooltip title="Aqui puedes ver tus ventas" arrow placement="right">
+                <button
+                  onClick={() => {
+                    // Navigate to an external link
+                    window.open('https://inventario-simba-back.onrender.com/inventario/ventas/', '_blank'); // Replace with the actual URL for Filter 3
+                    setShowNotification2(false);
+                    setTimeout(() => {
+                      setIsFiltersOpen2(false);
+                    }, 500); // Match this duration with the CSS transition duration
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                >
+                  Ventas
+                </button>
+              </Tooltip> */}
+            </div>
+          </Transition>
+
+        </div>
       </div>
+
+      <Transition
+        show={isFiltersOpen}
+        enter="transition-all duration-300 ease-out"
+        enterFrom="transform scale-95 opacity-0 -translate-y-2"
+        enterTo="transform scale-100 opacity-100 translate-y-0"
+        leave="transition-all duration-200 ease-in"
+        leaveFrom="transform scale-100 opacity-100 translate-y-0"
+        leaveTo="transform scale-95 opacity-0 -translate-y-2"
+      >
+        <div className="mt-4">
+          <ProductFilters />
+        </div>
+      </Transition>
+
+
 
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Productos Disponibles</h2>
@@ -123,9 +253,8 @@ function Home() {
                   dispatch(setSelectedProduct(product));
                   navigate(`/product/${product.id}`);
                 }}
-                className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md ${
-                  selectedProduct?.id === product.id ? 'ring-2 ring-primary-500' : ''
-                }`}
+                className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md ${selectedProduct?.id === product.id ? 'ring-2 ring-primary-500' : ''
+                  }`}
               >
                 <div className="aspect-w-16 aspect-h-9 w-full">
                   <img
@@ -157,13 +286,6 @@ function Home() {
           </div>
         )}
       </div>
-      {/* 
-  {selectedProduct && ( 
-
-           <div className="bg-white rounded-xl shadow-lg p-6 mt-0">
-         <ProductDisplay product={selectedProduct} />
-       </div>
-      )} */}
     </motion.div>
   );
 }

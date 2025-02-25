@@ -19,7 +19,7 @@ function MiniCart() {
         className="flex items-center group"
       >
         <span className="mr-2 text-gray-600 group-hover:text-primary-600">Carrito</span>
-        <span className="bg-primary-500 text-white rounded-full px-2.5 py-1 text-sm font-medium min-w-[1.5rem] text-center">
+        <span className="bg-primary-500 text-white rounded-full px-2.5 py-1 text-sm font-medium min-w-[1.5rem] text-center pulse-animation">
           {cart?.items?.length || 0}
         </span>
       </button>
