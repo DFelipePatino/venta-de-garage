@@ -53,8 +53,8 @@ function ProductDisplay() {
   }
 
   const handleAddToCart = () => {
-    const message = `Hola, estoy interesado en el producto ${normalizedProduct.name} que cuesta $${normalizedProduct.price.toFixed(2)}. ¿Está disponible?`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const message = `Hola, estoy interesado en el producto ${normalizedProduct.name} que cuesta $${normalizedProduct.price}. ¿Está disponible?`;
+    const whatsappUrl = `https://wa.me/573024274424?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     addToCart(normalizedProduct, quantity);
     setQuantity(1);

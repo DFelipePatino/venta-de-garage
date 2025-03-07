@@ -56,7 +56,7 @@ export const products = [
     "name": "Kit PlayStation - Headset y Control",
     "price": '300.000',
     "description": "Pack oficial de PlayStation que incluye un headset inalámbrico blanco con su dongle y un control original negro, ideal para una experiencia de juego completa.",
-    "inventory": 100,
+    "inventory": 1,
     "images": [
       "/IMG_4046.jpeg",
       "/IMG_4047.jpeg",
@@ -84,7 +84,7 @@ export const products = [
     "name": "Headset VR Universal para Teléfonos",
     "price": "50.000",
     "description": "Sumérgete en la realidad virtual con este headset VR universal, compatible con cualquier teléfono celular. Disfruta de una experiencia envolvente en juegos, videos y aplicaciones interactivas.",
-    "inventory": 100,
+    "inventory": 1,
     "images": [
       "/IMG_4059.jpeg",
       "/IMG_4060.jpeg",
@@ -110,9 +110,9 @@ export const products = [
   {
     "id": 5,
     "name": "Monitor LG UltraWide 34'' - Doble HDMI",
-    "price": "50.000",
+    "price": "620.000",
     "description": "Monitor LG UltraWide de 34 pulgadas en perfecto estado, ideal para trabajo, gaming y productividad. Cuenta con doble entrada HDMI y un elegante acabado negro cromado.",
-    "inventory": 100,
+    "inventory": 1,
     "images": [
       "/IMG_4064.jpeg",
    
@@ -128,7 +128,7 @@ export const products = [
       "Marca": "LG",
       "Color": "Negro cromado",
       "Conectividad": "2x HDMI, salida de audio",
-      "Peso": "7.5kg"
+      "Peso": "5.5kg"
     }
   }
   
