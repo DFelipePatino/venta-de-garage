@@ -5,7 +5,7 @@ const StoreContext = createContext();
 export function StoreProvider({ children }) {
   // Add storeConfig state
   const [storeConfig, setStoreConfig] = useState({
-    storeName: 'DanielP Store', // Default store name
+    storeName: 'Venta De Garage', // Default store name
     domain: window.location.hostname,
     product: {
       name: '',

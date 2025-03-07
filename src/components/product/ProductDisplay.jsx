@@ -53,6 +53,9 @@ function ProductDisplay() {
   }
 
   const handleAddToCart = () => {
+    const message = `Hola, estoy interesado en el producto ${normalizedProduct.name} que cuesta $${normalizedProduct.price.toFixed(2)}. ¿Está disponible?`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
     addToCart(normalizedProduct, quantity);
     setQuantity(1);
   };
@@ -76,7 +79,7 @@ function ProductDisplay() {
         >
           <h1 className="text-3xl font-bold mb-2 text-gray-900">{normalizedProduct.name}</h1>
           <p className="text-2xl text-primary-600 font-bold">
-            ${normalizedProduct.price.toFixed(2)}
+            ${normalizedProduct.price}
           </p>
         </motion.div>
 
@@ -130,7 +133,7 @@ function ProductDisplay() {
           transition={{ delay: 0.8 }}
           className="border-t pt-6"
         >
-          <div className="flex items-center space-x-4 mb-4">
+          {/* <div className="flex items-center space-x-4 mb-4">
             <label htmlFor="quantity" className="font-medium text-gray-700">
               Cantidad
             </label>
@@ -156,15 +159,15 @@ function ProductDisplay() {
                 +
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <p className="text-sm text-gray-600 mb-4">
+          {/* <p className="text-sm text-gray-600 mb-4">
             {normalizedProduct.inventory} unidades disponibles
-          </p>
+          </p> */}
           
           <button
             onClick={handleAddToCart}
-            className="w-full bg-primary-600 text-white py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-[#25D366] text-white py-3 px-6 rounded-lg hover:bg-[#128C7E] transition-colors flex items-center justify-center space-x-2"
           >
             <svg
               className="w-5 h-5"
@@ -176,10 +179,10 @@ function ProductDisplay() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                d="M12 2C6.48 2 2 6.48 2 12c0 2.39.84 4.58 2.24 6.32L2 22l3.68-1.24C7.42 21.16 9.61 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.55-.63-4.9-1.69l-.35-.26-2.2.74.74-2.2-.26-.35C4.63 15.55 4 13.85 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
               />
             </svg>
-            <span>Agregar al carrito</span>
+            <span>Contactar WA</span>
           </button>
         </motion.div>
       </div>

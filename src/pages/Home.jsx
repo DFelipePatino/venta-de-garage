@@ -8,7 +8,6 @@ import { setSelectedProduct } from '../redux/productActions';
 import { Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { getProducts } from '../redux/productActions';
-import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
 
 function Home() {
@@ -18,7 +17,7 @@ function Home() {
   const navigate = useNavigate();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isFiltersOpen2, setIsFiltersOpen2] = useState(false);
-  const productsEndPoint = useSelector(state => state.product.productsEndPoint);
+  // const productsEndPoint = useSelector(state => state.product.productsEndPoint);
   const [showNotification, setShowNotification] = useState(false);
   const [showNotification2, setShowNotification2] = useState(false);
 
@@ -38,7 +37,7 @@ function Home() {
         ...p,
         isLocalProduct: true
       })),
-      ...(productsEndPoint || []).map(p => ({
+      ...([]).map(p => ({
         id: p.id,
         name: p.nombre,
         price: parseFloat(p.precio),
@@ -67,7 +66,7 @@ function Home() {
             return 0;
         }
       });
-  }, [searchTerm, filterPrice, sortBy, productsEndPoint]);
+  }, [searchTerm, filterPrice, sortBy]);
 
   return (
     <motion.div
@@ -88,78 +87,10 @@ function Home() {
         </div>
       )} */}
       <div className="mb-6 flex justify-between items-center w-full">
-        <div className="relative flex-grow">
-          <Badge
-            variant="dot"
-            color="error"
-            invisible={!showNotification}
-            sx={{
-              '& .MuiBadge-badge': {
-                animation: showNotification ? 'pulse 1.5s infinite' : 'none',
-              },
-            }}
-          >
-            <button
-              onClick={() => {
-                setIsFiltersOpen(!isFiltersOpen);
-                setShowNotification(false);
-              }}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              <span>Filtros</span>
-              <svg
-                className={`w-5 h-5 transition-transform duration-200 ${isFiltersOpen ? 'rotate-180' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-          </Badge>
-        </div>
+        
 
         <div className="flex-none">
-          <Tooltip title="Aqui puedes agregar productos!" arrow placement="right">
-            <Badge
-              variant="dot"
-              color="error"
-              invisible={!showNotification2}
-              sx={{
-                width: '100%',
-                '& .MuiBadge-badge': {
-                  animation: showNotification2 ? 'pulse 1.5s infinite' : 'none',
-                },
-              }}
-            >
-
-              <button
-                onClick={() => setIsFiltersOpen2(!isFiltersOpen2)}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                <span>BackOffice</span>
-                <svg
-                  className={`w-5 h-5 transition-transform duration-200 ${isFiltersOpen2 ? 'rotate-180' : ''}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-            </Badge>
-          </Tooltip>
+         
 
           <Transition
             show={isFiltersOpen2}
@@ -269,11 +200,11 @@ function Home() {
                   </h3>
                   <div className="flex justify-between items-center">
                     <p className="text-primary-600 font-bold">
-                      ${product.price.toFixed(2)}
+                      ${product.price}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    {/* <p className="text-sm text-gray-500">
                       {product.inventory} disponibles
-                    </p>
+                    </p> */}
                   </div>
                   {!product.isLocalProduct && (
                     <p className="text-sm text-gray-500 mt-2">

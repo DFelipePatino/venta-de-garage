@@ -16,9 +16,9 @@ function Header() {
             {storeConfig?.storeName || 'Single Product Store'}
           </Link>
           
-          <nav className="flex items-center space-x-6">
+          {/* <nav className="flex items-center space-x-6">
             <MiniCart />
-          </nav>
+          </nav> */}
         </div>
       </div>
     </header>
