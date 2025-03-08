@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../../context/StoreContext';
 import MiniCart from '../cart/MiniCart';
+import Message from '../cart/Message';
 
 function Header() {
   const { storeConfig } = useStore();
@@ -19,6 +20,9 @@ function Header() {
           {/* <nav className="flex items-center space-x-6">
             <MiniCart />
           </nav> */}
+          <nav className="flex items-center space-x-6">
+            <Message />
+          </nav>
         </div>
       </div>
     </header>
