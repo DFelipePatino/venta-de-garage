@@ -84,7 +84,7 @@ export const products = [
     ],
     "features": [
       "Pantalla FullView de 6.5 pulgadas con resolución FHD+",
-      "Procesador Kirin 710 y 4GB de RAM para un rendimiento óptimo",
+      "Procesador MediaTek Helio A22 y 2GB de RAM para un rendimiento óptimo",
       "32GB de almacenamiento interno, expandible con microSD",
       "Cámara dual trasera de 13MP + 2MP y cámara frontal de 13MP + 2MP",
       "Batería de 4000mAh con excelente duración y salud al 100%",
