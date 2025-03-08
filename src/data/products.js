@@ -30,7 +30,7 @@ export const products = [
   {
     "id": 6,
     "name": "Osmo DJI Mobile 2 - Estabilizador para Smartphone",
-    "price": "450.000",
+    "price": "500.000",
     "description": "Estabilizador DJI Osmo Mobile 2 en perfecto estado, ideal para grabaciones fluidas y profesionales con tu smartphone. Aunque el joystick no está presente, la palanca sobresale y el equipo sigue siendo 100% funcional. La batería está al 100% de capacidad.",
     "inventory": 1,
     "images": [
